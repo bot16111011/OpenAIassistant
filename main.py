@@ -10,24 +10,40 @@ import numpy as np
 
 chatStr = ""
 # https://youtu.be/Z3ZAJoi4x6Q
+import webbrowser
+
 def chat(query):
     global chatStr
     print(chatStr)
-    openai.api_key = apikey
     chatStr += f"Harry: {query}\n Jarvis: "
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt= chatStr,
-        temperature=0.7,
-        max_tokens=256,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-    )
-    # todo: Wrap this inside of a  try catch block
-    say(response["choices"][0]["text"])
-    chatStr += f"{response['choices'][0]['text']}\n"
-    return response["choices"][0]["text"]
+
+    # Perform a Google search
+    search_query = f"https://www.google.com/search?q={query}"
+    webbrowser.open(search_query)
+
+    response = "I found some information on Google. Please check your web browser."
+    chatStr += f"{response}\n"
+    return response
+
+# def chat(query):
+#     global chatStr
+#     print(chatStr)
+#     openai.api_key = apikey
+#     chatStr += f"Harry: {query}\n Jarvis: "
+#     response = openai.Completion.create(
+#         model="text-davinci-003",
+#         prompt= chatStr,
+#         temperature=0.7,
+#         max_tokens=256,
+#         top_p=1,
+#         frequency_penalty=0,
+#         presence_penalty=0
+#     )
+#     # todo: Wrap this inside of a  try catch block
+#     say(response["choices"][0]["text"])
+#     chatStr += f"{response['choices'][0]['text']}\n"
+#     return response["choices"][0]["text"]
+
 
 
 def ai(prompt):
